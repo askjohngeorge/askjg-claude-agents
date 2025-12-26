@@ -1,8 +1,18 @@
-# askjg-claude-agents
+# John George's Claude Code Development Workflow
 
 Claude Code agents and commands used to build version 2 of [askjohngeorge.com](https://askjohngeorge.com) — John George's personal business landing page for voice AI consulting and development services.
 
 The site went live on December 24, 2025.
+
+## Video Walkthrough
+
+[![Video Walkthrough](https://img.youtube.com/vi/AG68VC_mOGY/maxresdefault.jpg)](https://youtu.be/AG68VC_mOGY)
+
+A complete walkthrough covering:
+- Custom commands and specialized subagents
+- Context management for consistent results
+- Task decomposition strategies
+- Live implementation of a feature using this workflow
 
 ## What's Included
 
