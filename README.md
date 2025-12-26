@@ -1,6 +1,6 @@
 # askjg-claude-agents
 
-Claude Code agents and commands used to build version 2 of [askjg.com](https://askjg.com) — John George's personal business landing page for voice AI consulting and development services.
+Claude Code agents and commands used to build version 2 of [askjohngeorge.com](https://askjohngeorge.com) — John George's personal business landing page for voice AI consulting and development services.
 
 The site went live on December 24, 2025.
 
