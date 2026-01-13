@@ -143,6 +143,41 @@ export const verifySession = cache(async () => {
 });
 ```
 
+### Middleware Pattern (middleware.ts)
+```typescript
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+// Define your protected routes here
+const protectedRoutes = ["/protected"];
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Read auth cookie (Better Auth uses '__Secure-' prefix on HTTPS)
+  // This is an OPTIMISTIC check - actual verification happens in DAL
+  const sessionCookie =
+    request.cookies.get("__Secure-better-auth.session_token") ||
+    request.cookies.get("better-auth.session_token");
+  const hasSessionCookie = !!sessionCookie?.value;
+
+  // Protected routes: redirect to login if no cookie (UX optimization)
+  const isProtectedRoute = protectedRoutes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`)
+  );
+
+  if (isProtectedRoute && !hasSessionCookie) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  // ⚠️ DO NOT redirect FROM /login based on cookie existence!
+  // The login PAGE should handle "already authenticated" via getSession()
+  // Cookies can be invalid/expired, causing redirect loops
+
+  return NextResponse.next();
+}
+```
+
 ### Login Form (Client Component)
 ```typescript
 "use client";
@@ -249,6 +284,28 @@ BETTER_AUTH_URL="http://localhost:3000"
 - ❌ **Wrong provider for Turso** - Use `provider: "sqlite"` not "mysql"
 - ❌ **Skipping schema generation** - Run `npx @better-auth/cli generate`
 - ❌ **Manual session table creation** - Let Better Auth CLI generate
+
+### Middleware Anti-Patterns (CAUSES REDIRECT LOOPS)
+- ❌ **Redirecting FROM /login based on cookie existence** - Causes infinite redirect loops when cookies are invalid/expired. The middleware sees the cookie and redirects to a protected route, but DAL validates and redirects back to login.
+
+```typescript
+// ❌ WRONG - causes redirect loops with invalid/expired cookies
+if (pathname === "/login" && hasSessionCookie) {
+  return NextResponse.redirect(new URL("/protected", request.url));
+}
+```
+
+**Correct approach:** Let the login PAGE handle "already authenticated" users:
+```typescript
+// app/(auth)/login/page.tsx
+export default async function LoginPage() {
+  const session = await getSession(); // DAL function (no redirect)
+  if (session) {
+    redirect("/protected"); // Server-side redirect after validation
+  }
+  return <LoginForm />;
+}
+```
 
 ---
 
