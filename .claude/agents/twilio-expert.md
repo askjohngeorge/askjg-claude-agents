@@ -320,7 +320,7 @@ Return findings in clear, organized format:
 
 ### Project Context
 
-**Tara Translator** is a Next.js dashboard for viewing AI voice agent call logs, with Pipecat bots deployed to Pipecat Cloud for telephony.
+**This project** is a Next.js dashboard for viewing AI voice agent call logs, with Pipecat bots deployed to Pipecat Cloud for telephony.
 
 **Current Twilio Integration**:
 - **Transport**: WebSocket-based Media Streams via Pipecat Cloud

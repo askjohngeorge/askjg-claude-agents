@@ -38,7 +38,7 @@ lsof -ti:7860 | xargs kill -9 2>/dev/null || true
 Start the Pipecat bot in the background:
 
 ```bash
-cd /Users/jga01/dev/tara-translator/scripts/pipecat && uv run python bot.py
+cd /Users/jga01/dev/pcc-askjg-gemini-demo/scripts/pipecat && uv run python bot.py
 ```
 
 Run this as a background task so you can monitor the logs throughout the session.
@@ -46,7 +46,7 @@ Run this as a background task so you can monitor the logs throughout the session
 ### Step 1.3: Verify Bot is Running
 
 Wait a few seconds, then check if the bot started successfully by looking for the startup log message:
-- "Starting Tara interpreter bot"
+- "Starting Pipecat bot"
 - Server listening on port 7860
 
 **Inform the user**: "Bot server started. Ready for debugging. You can connect via /dashboard/bot-test"
@@ -138,7 +138,7 @@ Kill and restart the bot to pick up changes:
 ```bash
 lsof -ti:7860 | xargs kill -9 2>/dev/null || true
 sleep 1
-cd /Users/jga01/dev/tara-translator/scripts/pipecat && uv run python bot.py
+cd /Users/jga01/dev/pcc-askjg-gemini-demo/scripts/pipecat && uv run python bot.py
 ```
 
 **Inform user**: "Diagnostic logs added and bot restarted. Ready for you to test."
@@ -251,7 +251,7 @@ Make the necessary code changes using `Edit` tool.
    ```bash
    lsof -ti:7860 | xargs kill -9 2>/dev/null || true
    sleep 1
-   cd /Users/jga01/dev/tara-translator/scripts/pipecat && uv run python bot.py
+   cd /Users/jga01/dev/pcc-askjg-gemini-demo/scripts/pipecat && uv run python bot.py
    ```
 
 2. Use `AskUserQuestion`:
